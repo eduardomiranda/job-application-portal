@@ -164,51 +164,50 @@ def _extract_resume_text(uploaded_file):
 
     if file_name.endswith(".pdf"):
         extracted_text, parser_name, parser_errors = _extract_text_from_pdf_bytes(file_bytes)
-        _log_resume_extraction(file_name, parser_name, extracted_text, parser_errors)
+        # _log_resume_extraction(file_name, parser_name, extracted_text, parser_errors)
         return extracted_text
 
     if file_name.endswith(".docx"):
         extracted_text = _extract_text_from_docx_bytes(file_bytes)
-        _log_resume_extraction(file_name, "docx-xml", extracted_text)
+        # _log_resume_extraction(file_name, "docx-xml", extracted_text)
         return extracted_text
 
     if file_name.endswith(".doc"):
         extracted_text = file_bytes.decode("latin-1", errors="ignore").strip()
-        _log_resume_extraction(file_name, "doc-latin1", extracted_text)
+        # _log_resume_extraction(file_name, "doc-latin1", extracted_text)
         return extracted_text
 
     extracted_text = file_bytes.decode("utf-8", errors="ignore").strip()
-    _log_resume_extraction(file_name, "utf8-generic", extracted_text)
+    # _log_resume_extraction(file_name, "utf8-generic", extracted_text)
     return extracted_text
 
 
 def _job_description_text():
     return """
-Título da vaga: Engenheiro(a) de Dados Sênior (Python, Snowflake)
-Empresa: Century Data
-Modalidade: Remoto, tempo integral
+Título da vaga: 📢 Analista de Implementação Técnica (PrivacyOps)
+Sobre a Função
+- Buscamos um profissional com forte viés tecnológico para atuar na configuração, integração e sustentação de plataforma em nossos clientes. Seu objetivo principal é garantir que a automação de privacidade funcione tecnicamente, conectando a plataforma aos ecossistemas de dados (SaaS, On-premise, Cloud) dos clientes.
 
-Responsabilidades:
-- Projetar e implementar pipelines robustos de ETL/ELT usando Python e Snowflake
-- Colaborar com analistas e cientistas de dados para entregar produtos de dados confiáveis
-- Otimizar performance de consultas e modelos de dados no Snowflake
-- Construir e manter fluxos de orquestração (Airflow, Prefect ou similares)
-- Garantir qualidade, observabilidade e documentação dos pipelines
-- Participar de code reviews e contribuir com boas práticas de engenharia
+Responsabilidades e Atribuições 
+- Configuração de Conectores: Configurar e validar conectores de plataformas de privacidade com diversas fontes de dados (Bancos de dados SQL/NoSQL, CRMs, ERPs e ambientes Cloud como AWS/Azure/GCP).
+- Automação de Varreduras (Data Discovery): Configurar políticas de escaneamento para identificação de dados sensíveis e classificação automatizada de ativos.
+- Orquestração de Workflows: Desenvolver e testar fluxos de automação para atendimento de direitos de titulares (DSAR) e gestão de consentimento.
+- Integrações via API: Atuar na integração da plataforma com outros sistemas via APIs e Webhooks para garantir a fluidez dos processos de privacidade.
+- Troubleshooting: Realizar o diagnóstico e a correção de falhas de comunicação entre a plataforma e as fontes de dados dos clientes.
+- Customização de Portais: Configurar centros de preferência e banners de cookies conforme as especificações técnicas e de design.
 
-Requisitos:
-- 5+ anos de experiência em Engenharia de Dados
-- Forte proficiência em Python (pandas, PySpark, SQLAlchemy)
-- Experiência prática com Snowflake em ambiente de produção
-- Experiência com ferramentas de orquestração de workflows (Airflow, Prefect, Dagster)
-- Familiaridade com dbt para transformação de dados
-- Experiência com plataformas de nuvem (AWS, GCP ou Azure)
-- Forte domínio de SQL e modelagem de dados
+Requisitos e Qualificações 
+- Configuração de Sistemas: Experiência sólida na configuração de softwares complexos, plataformas SaaS ou ferramentas de governança de dados (Securiti, OneTrust, BigID, etc).
+- Domínio de Plataformas de Privacidade: Experiência técnica em implantação e sustentação de ferramentas de privacidade.
+- Conhecimento em Infraestrutura e Nuvem: Noções de ambientes Cloud e conectividade (firewalls, permissões de acesso, redes).
+- Bancos de Dados: Conhecimento básico em consultas SQL para validação de conexões e fluxos de dados.
+- Perfil de Consultor Técnico: Capacidade de dialogar com os times de TI/Infraestrutura dos clientes para viabilizar às integrações.
 
-Diferenciais:
-- Experiência na indústria de games
-- Conhecimento em tecnologias de streaming (Kafka, Kinesis)
-- Familiaridade com frameworks de qualidade de dados (Great Expectations, Soda)
+Diferenciais 
+- Desenvolvimento: Noções de JavaScript, Python ou Shell Script para automação de tarefas, embora não seja uma vaga de coding, o conhecimento nas linguagens agrega muito valor na criação de automações customizadas
+- Privacidade de Dados: Conhecimento da LGPD/GDPR sob a ótica de implementação técnica.
+- Segurança da Informação: Conhecimento em autenticação (SAML, OAuth, SSO) e criptografia.
+- Formação Acadêmica: Graduação ou cursos técnicos em TI, Redes, Ciência da Computação ou áreas correlatas.
 """.strip()
 
 
@@ -301,54 +300,45 @@ footer { display: none; }
 job_title = "📢 Analista de Implementação Técnica (PrivacyOps)"
 
 # st.title("📢 Analista de Implementação Técnica (PrivacyOps)")
-st.caption("Century Data · Remoto · Tempo integral")
+st.caption("Century Data · Híbrido · Tempo integral")
 
 tab_overview, tab_application = st.tabs(["📋 Visão Geral", "📝 Candidatura"])
 
 # ── Aba Visão Geral ──────────────────────────────────────────────────────────
 with tab_overview:
-    st.subheader("Sobre a Vaga")
+    st.subheader("Sobre a Função")
     st.write(
-        "Estamos em busca de um(a) **Engenheiro(a) de Dados Sênior** para integrar o time de "
-        "nosso cliente na indústria de games. Você irá projetar, construir e manter pipelines de "
-        "dados escaláveis com Python e Snowflake, apoiando decisões orientadas por dados em toda a organização."
+        "Buscamos um profissional com forte viés tecnológico para atuar na configuração, integração "
+        "e sustentação de plataforma em nossos clientes. Seu objetivo principal é garantir que a "
+        "automação de privacidade funcione tecnicamente, conectando a plataforma aos ecossistemas de "
+        "dados (**SaaS, On-premise e Cloud**) dos clientes."
     )
 
-    st.subheader("Responsabilidades")
+    st.subheader("Responsabilidades e Atribuições")
     st.markdown("""
-- Projetar e implementar pipelines robustos de ETL/ELT usando Python e Snowflake
-- Colaborar com analistas e cientistas de dados para entregar produtos de dados confiáveis
-- Otimizar performance de consultas e modelos de dados no Snowflake
-- Construir e manter fluxos de orquestração (Airflow, Prefect ou similares)
-- Garantir qualidade, observabilidade e documentação dos pipelines
-- Participar de code reviews e contribuir com boas práticas de engenharia
+- **Configuração de Conectores:** Configurar e validar conectores de plataformas de privacidade com diversas fontes de dados (bancos SQL/NoSQL, CRMs, ERPs e ambientes cloud como AWS/Azure/GCP).
+- **Automação de Varreduras (Data Discovery):** Configurar políticas de escaneamento para identificação de dados sensíveis e classificação automatizada de ativos.
+- **Orquestração de Workflows:** Desenvolver e testar fluxos de automação para atendimento de direitos de titulares (DSAR) e gestão de consentimento.
+- **Integrações via API:** Atuar na integração da plataforma com outros sistemas via APIs e Webhooks para garantir a fluidez dos processos de privacidade.
+- **Troubleshooting:** Realizar o diagnóstico e a correção de falhas de comunicação entre a plataforma e as fontes de dados dos clientes.
+- **Customização de Portais:** Configurar centros de preferência e banners de cookies conforme as especificações técnicas e de design.
     """)
 
-    st.subheader("Requisitos")
+    st.subheader("Requisitos e Qualificações")
     st.markdown("""
-- 5+ anos de experiência em Engenharia de Dados
-- Forte proficiência em **Python** (pandas, PySpark, SQLAlchemy)
-- Experiência prática com **Snowflake** em ambiente de produção
-- Experiência com ferramentas de orquestração de workflows (Airflow, Prefect, Dagster)
-- Familiaridade com dbt para transformação de dados
-- Experiência com plataformas de nuvem (AWS, GCP ou Azure)
-- Forte domínio de SQL e modelagem de dados
+- **Configuração de Sistemas:** Experiência sólida na configuração de softwares complexos, plataformas SaaS ou ferramentas de governança de dados (Securiti, OneTrust, BigID, etc.).
+- **Domínio de Plataformas de Privacidade:** Experiência técnica em implantação e sustentação de ferramentas de privacidade.
+- **Conhecimento em Infraestrutura e Nuvem:** Noções de ambientes cloud e conectividade (firewalls, permissões de acesso, redes).
+- **Bancos de Dados:** Conhecimento básico em consultas SQL para validação de conexões e fluxos de dados.
+- **Perfil de Consultor Técnico:** Capacidade de dialogar com os times de TI/Infraestrutura dos clientes para viabilizar as integrações
     """)
 
     st.subheader("Diferenciais")
     st.markdown("""
-- Experiência na **indústria de games**
-- Conhecimento em tecnologias de streaming (Kafka, Kinesis)
-- Familiaridade com frameworks de qualidade de dados (Great Expectations, Soda)
-    """)
-
-    st.subheader("O que Oferecemos")
-    st.markdown("""
-- 🌎 Vaga 100% remota
-- 💰 Salário competitivo em USD
-- 🕐 Horário de trabalho flexível
-- 📈 Oportunidades de crescimento de carreira
-- 🎮 Trabalho com uma empresa de games de alto nível
+- **Desenvolvimento:** Noções de JavaScript, Python ou Shell Script para automação de tarefas; embora não seja uma vaga de coding, o conhecimento agrega valor na criação de automações customizadas.
+- **Privacidade de Dados:** Conhecimento da LGPD/GDPR sob a ótica de implementação técnica.
+- **Segurança da Informação:** Conhecimento em autenticação (SAML, OAuth, SSO) e criptografia.
+- **Formação Acadêmica:** Graduação ou cursos técnicos em TI, Redes, Ciência da Computação ou áreas correlatas.
     """)
 
     st.info("Pronto(a) para se candidatar? Vá para a aba **Candidatura** acima.")
@@ -404,15 +394,11 @@ with tab_application:
     # ── Histórico Técnico ─────────────────────────────────────────────────────
     st.subheader("💻 Histórico Técnico")
 
-    years_exp = st.selectbox("Anos de experiência como Engenheiro(a) de Dados *", [
+    years_exp = st.selectbox("Anos de experiência?", [
         "— Selecione —", "1–2 anos", "3–4 anos", "5–6 anos", "7–9 anos", "10+ anos",
     ])
 
-    python_level = st.selectbox("Nível de proficiência em Python *", [
-        "— Selecione —", "Iniciante", "Intermediário", "Avançado", "Especialista",
-    ])
-
-    snowflake_exp = st.radio("Experiência prática com Snowflake? *", [
+    privacy_platform_exp = st.radio("Experiência prática com Securiti ou OneTrust? *", [
         "Sim – uso em produção",
         "Sim – projetos pessoais/de estudo",
         "Não, mas tenho familiaridade",
@@ -421,7 +407,7 @@ with tab_application:
 
     tech_stack = st.text_area(
         "Descreva sua experiência com stack de dados *",
-        placeholder="ex.: Python (pandas, PySpark), Snowflake, dbt, Airflow, AWS S3…",
+        placeholder="ex.: Securiti, OneTrust, APIs, SQL, AWS/Azure/GCP, automações de privacidade…",
         height=110,
     )
 
@@ -431,7 +417,7 @@ with tab_application:
     availability = col5.selectbox("Disponibilidade para início *", [
         "— Selecione —", "Imediatamente", "2 semanas", "1 mês", "2 meses", "3+ meses",
     ])
-    salary_exp = col6.text_input("Pretensão salarial (USD/mês bruto) *", placeholder="ex.: 6000")
+    salary_exp = col6.text_input("Pretensão salarial (mês bruto) *", placeholder="ex.: 6000")
 
     st.divider()
 
@@ -469,7 +455,6 @@ with tab_application:
         if country == "— Selecione —":       errors.append("Selecione seu estado.")
         if resume is None:                   errors.append("Envie seu currículo.")
         if years_exp == "— Selecione —":     errors.append("Selecione seus anos de experiência.")
-        if python_level == "— Selecione —":  errors.append("Selecione seu nível de proficiência em Python.")
         if not tech_stack.strip():           errors.append("Descreva sua experiência com stack de dados.")
         if availability == "— Selecione —":  errors.append("Selecione sua disponibilidade.")
         if not salary_exp.strip():           errors.append("Informe sua pretensão salarial.")
@@ -492,8 +477,7 @@ with tab_application:
                 "linkedin": linkedin,
                 "portfolio": portfolio,
                 "years_exp": years_exp,
-                "python_level": python_level,
-                "snowflake_exp": snowflake_exp,
+                "privacy_platform_exp": privacy_platform_exp,
                 "tech_stack": tech_stack,
                 "availability": availability,
                 "salary_exp": salary_exp,
@@ -504,6 +488,7 @@ with tab_application:
 
             mongo_ok = False
             email_ok = False
+            candidate_email_ok = False
             inserted_id = None
             ai_evaluation = ""
 
@@ -572,8 +557,7 @@ with tab_application:
                         f"Cidade: {city}\n"
                         f"Estado: {country}\n"
                         f"Experiência (anos): {years_exp}\n"
-                        f"Nível de Python: {python_level}\n"
-                        f"Experiência com Snowflake: {snowflake_exp}\n"
+                        f"Experiência com Securiti ou OneTrust: {privacy_platform_exp}\n"
                         f"Experiência com stack de dados: {tech_stack}\n"
                         f"Disponibilidade para início: {availability}\n"
                         f"Pretensão salarial (USD/mês bruto): {salary_exp}\n"
@@ -591,9 +575,8 @@ with tab_application:
                             <p><b>Telefone:</b> {_to_text(phone)}</p>
                             <p><b>Cidade:</b> {_to_text(city)}</p>
                             <p><b>Estado:</b> {_to_text(country)}</p>
-                            <p><b>Anos de experiência como Engenheiro(a) de Dados:</b> {_to_text(years_exp)}</p>
-                            <p><b>Nível de proficiência em Python:</b> {_to_text(python_level)}</p>
-                            <p><b>Experiência com Snowflake:</b> {_to_text(snowflake_exp)}</p>
+                            <p><b>Anos de experiência:</b> {_to_text(years_exp)}</p>
+                            <p><b>Experiência com Securiti ou OneTrust:</b> {_to_text(privacy_platform_exp)}</p>
                             <p><b>Experiência com stack de dados:</b> {_to_text(tech_stack)}</p>
                             <p><b>Disponibilidade para início:</b> {_to_text(availability)}</p>
                             <p><b>Pretensão salarial (USD/mês bruto):</b> {_to_text(salary_exp)}</p>
@@ -635,14 +618,55 @@ with tab_application:
                         )
                         email_ok = True
                     except Exception as ex:
-                        st.error(f"Falha ao enviar e-mail: {ex}")
+                        st.error(f"Falha ao enviar e-mail interno: {ex}")
                     finally:
                         if file_path_attach and os.path.exists(file_path_attach):
                             os.remove(file_path_attach)
+
+                    candidate_subject = f"Recebemos sua candidatura | {job_title}"
+                    candidate_text_body = (
+                        f"Olá, {first_name}!\n\n"
+                        "Recebemos sua candidatura com sucesso.\n"
+                        "Agradecemos pelo seu interesse na oportunidade e pelo tempo dedicado ao preenchimento do formulário.\n\n"
+                        "Nosso time fará a análise do seu perfil e, havendo aderência, entraremos em contato pelos próximos passos.\n\n"
+                        "Atenciosamente,\n"
+                        "Century Data"
+                    )
+                    candidate_html_body = f"""
+                    <html>
+                        <body>
+                            <p>Olá, <b>{_to_text(first_name)}</b>!</p>
+                            <p>Recebemos sua candidatura com sucesso.</p>
+                            <p>
+                                Agradecemos pelo seu interesse na oportunidade e pelo tempo dedicado ao preenchimento do formulário.
+                            </p>
+                            <p>
+                                Nosso time fará a análise do seu perfil e, havendo aderência,
+                                entraremos em contato pelos próximos passos.
+                            </p>
+                            <p>Atenciosamente,<br><b>Century Data</b></p>
+                        </body>
+                    </html>
+                    """
+
+                    try:
+                        enviar_html_email(
+                            subject=candidate_subject,
+                            text_body_message=candidate_text_body,
+                            html_body_message=candidate_html_body,
+                            sender=sender,
+                            password=password,
+                            recipients=[email],
+                            bcc_recipients=[],
+                            file_path_attach=None,
+                        )
+                        candidate_email_ok = True
+                    except Exception as ex:
+                        st.error(f"Falha ao enviar e-mail ao candidato: {ex}")
                 else:
                     st.error("Configuração de e-mail ausente em st.secrets.")
 
-            if mongo_ok and email_ok:
+            if mongo_ok and email_ok and candidate_email_ok:
                 st.balloons()
                 st.success(
                     f"✅ Obrigado(a), **{first_name}**! Sua candidatura foi enviada com sucesso. "
