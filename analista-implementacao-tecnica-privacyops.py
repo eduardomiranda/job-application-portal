@@ -280,11 +280,11 @@ def _generate_openai_response(api_key, openai_model, system_prompt_text, user_pr
         response_format=response_format,
     )
 
-PAGE_TITLE = "Engenheiro(a) de Dados Sênior – Century Data"
+PAGE_TITLE = "Analista de Implementação Técnica (PrivacyOps)"
 
 st.set_page_config(
     page_title=PAGE_TITLE,
-    page_icon="🚀",
+    page_icon="👨‍💻",
     layout="centered",
 )
 
