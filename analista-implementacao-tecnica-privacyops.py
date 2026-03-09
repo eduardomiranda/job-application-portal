@@ -394,11 +394,33 @@ with tab_application:
     # ── Histórico Técnico ─────────────────────────────────────────────────────
     st.subheader("💻 Histórico Técnico")
 
-    years_exp = st.selectbox("Anos de experiência?", [
+    privacy_experience = st.selectbox(
+        "Qual sua experiência com privacidade de dados (LGPD / GDPR)? *",
+        [
+            "— Selecione —",
+            "Nenhuma",
+            "Conhecimento teórico básico",
+            "Já participei de projetos relacionados",
+            "Já trabalhei diretamente com ferramentas de privacidade",
+            "Tenho experiência técnica implementando soluções",
+        ],
+    )
+
+    privacy_technology_role = st.text_area(
+        "Na sua visão, qual o papel da tecnologia para ajudar empresas a cumprir a LGPD? *",
+        placeholder=(
+            "Descreva com exemplos práticos. Se possível, cite pontos como data discovery, "
+            "classificação de dados, DSAR, gestão de consentimento e data mapping."
+        ),
+        height=130,
+    )
+
+
+    years_exp = st.selectbox("Anos de experiência com implantação de sistemas?", [
         "— Selecione —", "1–2 anos", "3–4 anos", "5–6 anos", "7–9 anos", "10+ anos",
     ])
 
-    privacy_platform_exp = st.radio("Experiência prática com Securiti ou OneTrust? *", [
+    privacy_platform_exp = st.radio("Experiência prática com sistemas de privacidade (Securiti, OneTrust, BigID ou Privacy Tools)? *", [
         "Sim – uso em produção",
         "Sim – projetos pessoais/de estudo",
         "Não, mas tenho familiaridade",
@@ -406,9 +428,73 @@ with tab_application:
     ])
 
     tech_stack = st.text_area(
-        "Descreva sua experiência com stack de dados *",
-        placeholder="ex.: Securiti, OneTrust, APIs, SQL, AWS/Azure/GCP, automações de privacidade…",
+        "Descreva sua experiência com privacidade de dados *",
+        placeholder="ex.: Securiti, OneTrust, BigID, Privacy Tools, APIs, SQL, AWS/Azure/GCP, automações de privacidade…",
         height=110,
+    )
+
+    implementation_involvement = st.selectbox(
+        "Qual foi seu nível de envolvimento na implementação técnica de softwares corporativos (SaaS, ERP, CRM ou ferramentas de dados)? *",
+        [
+            "— Selecione —",
+            "Nunca participei",
+            "Participei apenas como usuário ou suporte",
+            "Ajudei em algumas configurações",
+            "Configurei integrações e parametrizações",
+            "Liderei ou fui responsável pela implementação técnica",
+        ],
+    )
+
+    implementation_example = st.text_area(
+        "Descreva brevemente uma implementação real da qual você participou *",
+        placeholder=(
+            "Inclua: qual sistema era, qual era seu papel, que tipo de integração/configuração você fez "
+            "(ex.: autenticação, APIs, banco de dados, troubleshooting técnico)."
+        ),
+        height=140,
+    )
+
+    troubleshooting_first_step = st.selectbox(
+        "Durante uma integração entre uma plataforma SaaS e um banco de dados do cliente, a conexão falha. Qual seria seu primeiro passo? *",
+        [
+            "— Selecione —",
+            "Pedir acesso ao administrador",
+            "Testar credenciais e permissões",
+            "Verificar conectividade de rede/firewall",
+            "Verificar logs da aplicação",
+            "Testar conexão diretamente no banco",
+            "Todas as anteriores",
+        ],
+    )
+
+    troubleshooting_example = st.text_area(
+        "Conte um exemplo real de erro técnico que você precisou investigar em uma integração ou configuração de software *",
+        placeholder=(
+            "Explique: qual era o erro, como você investigou e como resolveu. "
+            "Dê detalhes técnicos (logs, testes, rede, permissões, APIs, banco, etc.)."
+        ),
+        height=140,
+    )
+
+    integrations_activities = st.multiselect(
+        "Qual destas atividades você já realizou tecnicamente? *",
+        [
+            "Consultas SQL para validar dados",
+            "Integração via API REST",
+            "Configuração de Webhooks",
+            "Integração entre sistemas SaaS",
+            "Integração com cloud (AWS / Azure / GCP)",
+            "Nunca realizei essas atividades",
+        ],
+    )
+
+    integration_example = st.text_area(
+        "Descreva uma integração entre sistemas que você ajudou a implementar *",
+        placeholder=(
+            "Inclua: sistemas envolvidos, tecnologia usada (API, banco, ETL etc.) "
+            "e principal dificuldade."
+        ),
+        height=130,
     )
 
     st.divider()
@@ -456,6 +542,27 @@ with tab_application:
         if resume is None:                   errors.append("Envie seu currículo.")
         if years_exp == "— Selecione —":     errors.append("Selecione seus anos de experiência.")
         if not tech_stack.strip():           errors.append("Descreva sua experiência com stack de dados.")
+        if privacy_experience == "— Selecione —":
+             errors.append("Selecione seu nível de experiência com privacidade de dados.")
+        if implementation_involvement == "— Selecione —":
+             errors.append("Selecione seu nível de envolvimento em implementação técnica.")
+        if not implementation_example.strip():
+             errors.append("Descreva uma implementação real da qual você participou.")
+        if troubleshooting_first_step == "— Selecione —":
+             errors.append("Selecione seu primeiro passo no diagnóstico técnico.")
+        if not troubleshooting_example.strip():
+             errors.append("Descreva um exemplo real de troubleshooting técnico.")
+        if not integrations_activities:
+             errors.append("Selecione ao menos uma atividade técnica de integrações e dados.")
+        if (
+            "Nunca realizei essas atividades" in integrations_activities
+            and len(integrations_activities) > 1
+        ):
+             errors.append("Se marcar 'Nunca realizei essas atividades', não selecione outras opções.")
+        if not integration_example.strip():
+             errors.append("Descreva uma integração entre sistemas que você ajudou a implementar.")
+        if not privacy_technology_role.strip():
+             errors.append("Descreva o papel da tecnologia para apoiar o cumprimento da LGPD.")
         if availability == "— Selecione —":  errors.append("Selecione sua disponibilidade.")
         if not salary_exp.strip():           errors.append("Informe sua pretensão salarial.")
         if heard_about == "— Selecione —":   errors.append("Informe como você soube desta vaga.")
@@ -479,6 +586,14 @@ with tab_application:
                 "years_exp": years_exp,
                 "privacy_platform_exp": privacy_platform_exp,
                 "tech_stack": tech_stack,
+                "implementation_involvement": implementation_involvement,
+                "implementation_example": implementation_example,
+                "troubleshooting_first_step": troubleshooting_first_step,
+                "troubleshooting_example": troubleshooting_example,
+                "integrations_activities": integrations_activities,
+                "integration_example": integration_example,
+                "privacy_experience": privacy_experience,
+                "privacy_technology_role": privacy_technology_role,
                 "availability": availability,
                 "salary_exp": salary_exp,
                 "heard_about": heard_about,
@@ -556,9 +671,17 @@ with tab_application:
                         f"Telefone: {phone}\n"
                         f"Cidade: {city}\n"
                         f"Estado: {country}\n"
-                        f"Experiência (anos): {years_exp}\n"
-                        f"Experiência com Securiti ou OneTrust: {privacy_platform_exp}\n"
+                        f"Experiência com privacidade de dados (anos): {years_exp}\n"
+                        f"Experiência prática com sistemas de privacidade: {privacy_platform_exp}\n"
                         f"Experiência com stack de dados: {tech_stack}\n"
+                        f"Nível de envolvimento em implementação técnica: {implementation_involvement}\n"
+                        f"Implementação real (detalhes): {implementation_example}\n"
+                        f"Primeiro passo no troubleshooting (diagnóstico técnico): {troubleshooting_first_step}\n"
+                        f"Exemplo real de troubleshooting técnico: {troubleshooting_example}\n"
+                        f"Atividades técnicas já realizadas (integrações e dados): {', '.join(integrations_activities) if integrations_activities else 'Não informado'}\n"
+                        f"Exemplo de integração entre sistemas: {integration_example}\n"
+                        f"Experiência com privacidade de dados (LGPD/GDPR): {privacy_experience}\n"
+                        f"Papel da tecnologia para cumprimento da LGPD: {privacy_technology_role}\n"
                         f"Disponibilidade para início: {availability}\n"
                         f"Pretensão salarial (USD/mês bruto): {salary_exp}\n"
                         f"Como soube da vaga: {heard_about}\n"
@@ -578,6 +701,14 @@ with tab_application:
                             <p><b>Anos de experiência:</b> {_to_text(years_exp)}</p>
                             <p><b>Experiência com Securiti ou OneTrust:</b> {_to_text(privacy_platform_exp)}</p>
                             <p><b>Experiência com stack de dados:</b> {_to_text(tech_stack)}</p>
+                            <p><b>Nível de envolvimento em implementação técnica:</b> {_to_text(implementation_involvement)}</p>
+                            <p><b>Implementação real (detalhes):</b> {_to_text(implementation_example)}</p>
+                            <p><b>Primeiro passo no troubleshooting (diagnóstico técnico):</b> {_to_text(troubleshooting_first_step)}</p>
+                            <p><b>Exemplo real de troubleshooting técnico:</b> {_to_text(troubleshooting_example)}</p>
+                            <p><b>Atividades técnicas já realizadas (integrações e dados):</b> {_to_text(', '.join(integrations_activities) if integrations_activities else 'Não informado')}</p>
+                            <p><b>Exemplo de integração entre sistemas:</b> {_to_text(integration_example)}</p>
+                            <p><b>Experiência com privacidade de dados (LGPD/GDPR):</b> {_to_text(privacy_experience)}</p>
+                            <p><b>Papel da tecnologia para cumprimento da LGPD:</b> {_to_text(privacy_technology_role)}</p>
                             <p><b>Disponibilidade para início:</b> {_to_text(availability)}</p>
                             <p><b>Pretensão salarial (USD/mês bruto):</b> {_to_text(salary_exp)}</p>
                             <p><b>Como você soube desta vaga?:</b> {_to_text(heard_about)}</p>
